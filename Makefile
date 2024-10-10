@@ -6,7 +6,7 @@
 #    By: filferna <filferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 14:22:41 by filferna          #+#    #+#              #
-#    Updated: 2024/10/10 15:46:52 by filferna         ###   ########.fr        #
+#    Updated: 2024/10/10 18:42:08 by filferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,14 @@ SRC = main.c
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
-CC = cc -Wall -Werror -Wextra -lreadline
+CC = cc -Wall -Werror -Wextra -g -lreadline
 
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBS)
-		$(CC) $(SRC) $(LIBS) -o $(NAME) 
+		$(CC) $(SRC) $(LIBS) -o $(NAME)
+
+re: fclean all
 
 $(LIBS):
 		make -C ./libs/libft
