@@ -6,7 +6,7 @@
 #    By: filferna <filferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 19:11:35 by filferna          #+#    #+#              #
-#    Updated: 2024/05/01 21:17:13 by filferna         ###   ########.fr        #
+#    Updated: 2024/10/10 15:49:04 by filferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,5 +34,5 @@ re:		fclean $(NAME)
 clean: 
 		rm -f $(OBJS)
 
-fclean:
+fclean: clean
 		rm -f $(NAME)
