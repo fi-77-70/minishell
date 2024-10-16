@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:21 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/10 19:21:33 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:16:55 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ int	main(void)
 	char	**line;
 	int		j;
 	// t_args	**input;
-	
 	while(1)
 	{
 		j = -1;
-		printf("minishell: ");
-		while (!(str = readline(STDIN_FILENO)))
-			;
+		str = readline("minishell: ");
+		add_history(str);
 		line = ft_splot(str);
 		if (!line)
 			return (0);
