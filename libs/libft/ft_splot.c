@@ -6,16 +6,17 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:38:58 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/10 19:07:57 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:03:58 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	jump(char *str, int *j)
+void	jump(char *str, int *j, int *i)
 {
 	while (str[*j] && str[*j] == ' ')
 		*j += 1;
+	*i = *j;
 }
 
 void	ft_quote(char *str, int *i, char sep)
@@ -49,15 +50,19 @@ int	cut_count(char *str)
 	return (j);
 }
 
-char	*ft_space(char *str, int *j, int *i)
+char	*ft_space(char *str, int *j, int *i, char *previous)
 {
 	int		a;
 	char	*matrix;
 
 	a = 0;
-	if (str[*i + 1] == 0)
+	if (*j >= *i || str[*j] == 0)
+		return (previous);
+	if (str[*i + 1] == 0 && str[*i] != ' ')
 		*i += 1;
 	matrix = (char *)malloc(sizeof(char) * (*i - *j) + 1);
+	if(!matrix)
+		return (NULL);
 	while (*j < *i)
 	{
 		matrix[a] = str[*j];
@@ -80,20 +85,23 @@ char	**ft_splot(char *str)
 		return (NULL);
 	i = -1;
 	j = 0;
-	a = -1;
+	a = 0;
 	while(str[++i])
 	{
 		if (str[j] == ' ')
-			jump(str, &j);
+			jump(str, &j, &i);
 		if (str[i] == 39)
 			ft_quote(str, &i, 39);
 		if (str[i] == '"')
 			ft_quote(str, &i, '"');
 		if (str[i] == ' ' || str[i + 1] == 0)
-			matrix[++a] = ft_space(str, &j, &i);
+		{
+			matrix[a] = ft_space(str, &j, &i, matrix[a]);
+			a++;
+		}
 		if (str[i] == 0)
 			break ;
 	}
-	matrix[a + 1] = NULL;
+	matrix[a] = NULL;
 	return (matrix);
 }

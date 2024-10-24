@@ -6,13 +6,13 @@
 #    By: filferna <filferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 14:22:41 by filferna          #+#    #+#              #
-#    Updated: 2024/10/10 18:42:08 by filferna         ###   ########.fr        #
+#    Updated: 2024/10/24 16:45:04 by filferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c 
+SRC = main.c ./parsing/lexer.c
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
