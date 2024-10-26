@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filferna <filferna@student.42.fr>          +#+  +:+       +#+         #
+#    By: gudaniel <gudaniel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 14:22:41 by filferna          #+#    #+#              #
-#    Updated: 2024/10/24 16:45:04 by filferna         ###   ########.fr        #
+#    Updated: 2024/10/25 14:00:45 by gudaniel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c ./parsing/lexer.c
+SRC = main.c ./parsing/lexer.c ./builtin/echo/echo.c
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
