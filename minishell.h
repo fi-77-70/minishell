@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:35 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/26 16:14:59 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/27 15:20:08 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,14 @@
 #include "libs/libft/libft.h"
 #include "libs/ft_printf/ft_printf.h"
 
-#define	BUILT 0
-#define CMD 1
-#define ARG 2
-#define	PIPE 3 
+#define	BUILT		1
+#define CMD			2
+#define ARG			3
+#define	PIPE		4
+#define RED_OUT		5
+#define APP_OUT		6
+#define	RED_IN		7
+#define	HERE_DOC	8
 
 typedef struct s_args{
 	char 			*token;
@@ -32,7 +36,7 @@ typedef struct s_args{
 	struct	s_args	*next;
 }	t_args;
 
-int		lexer(char *token);
+void	lexer(t_args **mshh, char **line);
 int		is_cmd(char *str);
 void	expand(t_args **args);
 char	*ft_expander(char *str);

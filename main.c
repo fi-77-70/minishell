@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:21 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/26 16:13:46 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/27 18:33:03 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_list(t_args **mshh)
 	t_args	*temp;
 
 	node = *mshh;
-	while (node->next)
+	while (node)
 	{
 		temp = node->next;
 		free(node);
@@ -55,40 +55,22 @@ int	main(void)
 {
 	char	*str;
 	char	**line;
-	int		j;
 	t_args	**mshh;
 	t_args	*msh;
-	j = -1;
+	
 	while(1)
 	{
 		mshh = (t_args **)malloc(sizeof(t_args *));
-		msh = (t_args *)malloc(sizeof(t_args));
+		if(!mshh)
+			return (0);
 		*mshh = msh;
-		j = -1;
 		str = readline("minishell: ");
 		add_history(str);
+		//ft_input_parsing(str);
 		line = ft_splot(str);
-		while(line[++j])
-		{
-			msh->token = line[j];
-			if(j == 0)
-				msh->type = CMD;
-			else if(!ft_strcmp(line[j], "|"))
-				msh->type = PIPE;
-			msh->next = (t_args *)malloc(sizeof(t_args));
-			if (!line[j + 1])
-			{
-				msh->next = NULL;
-				break ;
-			}
-			if(msh->type == PIPE)
-				msh->next->type = CMD;
-			else
-				msh->next->type = ARG;
-			msh = msh->next;
-		}
-		msh = *mshh;
+		lexer(mshh, line);
 		expand(mshh);
+		msh = *mshh;
 		while (msh)
 		{
 			printf("token --> [%s]\n", msh->token);
