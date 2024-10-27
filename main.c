@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:21 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/24 17:50:09 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:13:46 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	main(void)
 			msh = msh->next;
 		}
 		msh = *mshh;
+		expand(mshh);
 		while (msh)
 		{
 			printf("token --> [%s]\n", msh->token);
