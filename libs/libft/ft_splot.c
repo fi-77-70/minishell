@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:38:58 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/27 20:10:57 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:26:46 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	check_symbol(char *str, int *j, int *i, char **matrix, int *a)
 		*i += 2;
 		matrix[*a] = ft_space(str, j, i, matrix[*a]);
 		*a += 1;
+		check_symbol(str, j, i, matrix, a);
 	}
 	else if (!ft_strncmp(str + *j, "<", 1) || !ft_strncmp(str + *j, ">", 1))
 	{
@@ -115,8 +116,7 @@ void	check_symbol(char *str, int *j, int *i, char **matrix, int *a)
 	else if (str[*i] == '|')
 		while (str[*i] == '|')
 		{
-			matrix[*a] = (char *)malloc(sizeof(char) * 1 + 1);
-			matrix[*a] = "|\0";
+			matrix[*a] = ft_strdup("|");
 			*i += 1;
 			*j += 1;
 			*a += 1;

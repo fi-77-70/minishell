@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:21 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/27 18:33:03 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:47:18 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,18 @@ int	is_cmd(char *str)
 
 void	free_list(t_args **mshh)
 {
-	t_args	*node;
+	t_args	**node;
 	t_args	*temp;
 
-	node = *mshh;
-	while (node)
+	node = mshh;
+	while (*mshh)
 	{
-		temp = node->next;
-		free(node);
-		node = temp;
+		temp = (*mshh)->next;
+		free((*mshh)->token);
+		free(*mshh);
+		*mshh = temp;
 	}
+	free(*mshh);
 	free(mshh);
 }
 
@@ -57,7 +59,11 @@ int	main(void)
 	char	**line;
 	t_args	**mshh;
 	t_args	*msh;
+	t_args	*temp;
 	
+	mshh = NULL;
+	msh = NULL;
+	temp = NULL;
 	while(1)
 	{
 		mshh = (t_args **)malloc(sizeof(t_args *));
@@ -66,17 +72,17 @@ int	main(void)
 		*mshh = msh;
 		str = readline("minishell: ");
 		add_history(str);
-		//ft_input_parsing(str);
 		line = ft_splot(str);
-		lexer(mshh, line);
+		msh = lexer(mshh, line);
 		expand(mshh);
-		msh = *mshh;
-		while (msh)
+		temp = msh;
+		while (temp)
 		{
-			printf("token --> [%s]\n", msh->token);
-			printf("type  --> [%d]\n", msh->type);
-			msh = msh->next;
+			printf("token --> [%s]\n", temp->token);
+			printf("type  --> [%d]\n", temp->type);
+			temp = temp->next;
 		}
+		*mshh = msh;
 		free_list(mshh);
 	}
 }

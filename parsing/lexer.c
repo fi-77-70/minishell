@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:19:16 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/27 19:01:21 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:10:49 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,18 @@ void	ft_get_type(t_args **mshh, char *token)
 		msh->type = 0;
 }
 
-void	lexer(t_args **mshh, char **line)
+t_args	*lexer(t_args **mshh, char **line)
 {
 	int		j;
 	t_args	*msh;
-
+	t_args	*temp;
+	
 	j = -1;
 	msh = *mshh;
 	msh = (t_args *)malloc(sizeof(t_args));
-	*mshh = msh;
+	temp = msh;
 	if(!msh)
-		return ;
+		return (NULL);
 	while(line[++j])
 	{
 		msh->next = (t_args *)malloc(sizeof(t_args));
@@ -52,7 +53,7 @@ void	lexer(t_args **mshh, char **line)
 			ft_get_type(&msh, line[j]);
 		if (!msh->type)
 			msh->type = ARG;
-		if (msh->type == '|')
+		if (msh->type == PIPE)
 			msh->next->type = CMD;
 		if (!line[j + 1])
 		{
@@ -61,4 +62,6 @@ void	lexer(t_args **mshh, char **line)
 		}
 		msh = msh->next;
 	}
+	*mshh = temp;
+	return (temp);
 }

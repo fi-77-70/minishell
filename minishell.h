@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:35 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/27 15:20:08 by filferna         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:45:00 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_args{
 	struct	s_args	*next;
 }	t_args;
 
-void	lexer(t_args **mshh, char **line);
+t_args	*lexer(t_args **mshh, char **line);
 int		is_cmd(char *str);
 void	expand(t_args **args);
 char	*ft_expander(char *str);

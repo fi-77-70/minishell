@@ -31,7 +31,10 @@ char	*ft_final_expand(char *str, char *var, char *var_name)
 			expanded = 1;
 		}
 		final[j++] = str[i];
+		if (!str[i])
+			break ;
 	}
+	final[j] = 0;
 	return (free(var_name), free(str), final);
 }
 
@@ -79,6 +82,7 @@ void	expand(t_args **args)
 	int		quoted;
 	t_args	*temp;
 
+	temp = NULL;
 	temp = *args;
 	quoted = -1;
 	while(temp)
@@ -96,6 +100,8 @@ void	expand(t_args **args)
 			}
 			if (temp->token[i] == '$')
 				temp->token = ft_expander(temp->token);
+			if (!temp->token[i])
+				break ;
 		}
 		temp = temp->next;
 	}
