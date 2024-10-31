@@ -38,10 +38,8 @@ int	is_cmd(char *str)
 
 void	free_list(t_args **mshh)
 {
-	t_args	**node;
 	t_args	*temp;
 
-	node = mshh;
 	while (*mshh)
 	{
 		temp = (*mshh)->next;

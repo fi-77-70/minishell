@@ -95,7 +95,7 @@ void	check_symbol(char *str, int *j, int *i, char **matrix, int *a)
 {
 	if (str[*i] == ' ' || (str[*i] != '|' && str[*i] != '<' && str[*i] != '>'))
 		return ;
-	if (str + *j + 1 && (!ft_strncmp(str + *j, ">>", 2) || !ft_strncmp(str + *j, "<<", 2)))
+	if (*(str + *j + 1) && (!ft_strncmp(str + *j, ">>", 2) || !ft_strncmp(str + *j, "<<", 2)))
 	{
 		if (*i != *j)
 			*i = *j;
