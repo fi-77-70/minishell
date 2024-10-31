@@ -72,6 +72,7 @@ int	main(void)
 		add_history(str);
 		line = ft_splot(str);
 		msh = lexer(mshh, line);
+    *mshh = msh;
 		expand(mshh);
 		temp = msh;
 		while (temp)
@@ -82,5 +83,6 @@ int	main(void)
 		}
 		*mshh = msh;
 		free_list(mshh);
+    free(line);
 	}
 }

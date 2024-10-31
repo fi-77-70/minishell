@@ -45,7 +45,6 @@ t_args	*lexer(t_args **mshh, char **line)
 		return (NULL);
 	while(line[++j])
 	{
-		msh->next = (t_args *)malloc(sizeof(t_args));
 		msh->token = line[j];
 		if(j == 0)
 			msh->type = CMD;
@@ -53,13 +52,14 @@ t_args	*lexer(t_args **mshh, char **line)
 			ft_get_type(&msh, line[j]);
 		if (!msh->type)
 			msh->type = ARG;
-		if (msh->type == PIPE)
-			msh->next->type = CMD;
 		if (!line[j + 1])
 		{
 			msh->next = NULL;
 			break ;
 		}
+    if (msh->type == PIPE)
+      msh->next->type = CMD;
+    msh->next = (t_args *)malloc(sizeof(t_args));
 		msh = msh->next;
 	}
 	*mshh = temp;

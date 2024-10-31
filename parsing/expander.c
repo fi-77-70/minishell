@@ -81,9 +81,11 @@ void	expand(t_args **args)
 	int		i;
 	int		quoted;
 	t_args	*temp;
+  t_args  *msh;
 
 	temp = NULL;
 	temp = *args;
+  msh = temp;
 	quoted = -1;
 	while(temp)
 	{
@@ -105,4 +107,5 @@ void	expand(t_args **args)
 		}
 		temp = temp->next;
 	}
+  *args = msh;
 }
