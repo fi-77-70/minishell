@@ -14,8 +14,8 @@
 # define MINISHELL_H
 
 #include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libs/libft/libft.h"
@@ -42,5 +42,6 @@ void	expand(t_args **args);
 char	*ft_expander(char *str);
 char	*get_var_name(char *env_var);
 char	*ft_final_expand(char *str, char *var, char *var_name);
+int ft_input_check(t_args **mshh);
 
 #endif

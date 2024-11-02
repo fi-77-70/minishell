@@ -57,9 +57,9 @@ t_args	*lexer(t_args **mshh, char **line)
 			msh->next = NULL;
 			break ;
 		}
+    msh->next = (t_args *)malloc(sizeof(t_args));
     if (msh->type == PIPE)
       msh->next->type = CMD;
-    msh->next = (t_args *)malloc(sizeof(t_args));
 		msh = msh->next;
 	}
 	*mshh = temp;

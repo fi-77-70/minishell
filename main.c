@@ -75,14 +75,19 @@ int	main(void)
     *mshh = msh;
 		expand(mshh);
 		temp = msh;
-		while (temp)
-		{
-			printf("token --> [%s]\n", temp->token);
-			printf("type  --> [%d]\n", temp->type);
-			temp = temp->next;
-		}
+    if (ft_input_check(mshh))
+    {
+	   while (temp)
+	   {
+	    printf("token --> [%s]\n", temp->token);
+	    printf("type  --> [%d]\n", temp->type);
+	    temp = temp->next;
+     }
+    }
+    else
+      printf("ERROR IN PARSING\n");
 		*mshh = msh;
 		free_list(mshh);
     free(line);
-	}
+  }
 }

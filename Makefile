@@ -12,7 +12,7 @@
 
 NAME = minishell
 
-SRC = main.c ./parsing/lexer.c ./parsing/expander.c
+SRC = main.c ./parsing/lexer.c ./parsing/expander.c ./parsing/input_parsing.c
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
