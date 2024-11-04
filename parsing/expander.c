@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char	*ft_final_expand(char *str, char *var, char *var_name)
+char	*ft_final_expand(char *str, char *var, char *var_name, int n)
 {
 	int		i;
 	int		j;
@@ -18,6 +18,11 @@ char	*ft_final_expand(char *str, char *var, char *var_name)
 	a = 0;
 	while (str[++i])
 	{
+		while (i < n)
+		{
+			final[j++] = str[i];
+			i++;
+		}
 		if (str[i] == '$' && expanded == 0)
 		{
 			if(str[i] == '$')
@@ -61,19 +66,16 @@ char	*get_var_name(char *env_var)
 	return (var);
 }
 
-char	*ft_expander(char *str)
+char	*ft_expander(char *str, int i)
 {
-	int		i;
 	char	*var_name;
 	char	*expanded;
 
-	i = 0;
-	while (str[i] != '$' && str[i])
-		i++;
 	i++;
 	var_name = get_var_name(str + i);
 	expanded = getenv(var_name);
-	return (ft_final_expand(str, expanded, var_name));
+	i--;
+	return (ft_final_expand(str, expanded, var_name, i));
 }
 
 void	expand(t_args **args)
@@ -101,7 +103,7 @@ void	expand(t_args **args)
 					i++;
 			}
 			if (temp->token[i] == '$')
-				temp->token = ft_expander(temp->token);
+				temp->token = ft_expander(temp->token, i);
 			if (!temp->token[i])
 				break ;
 		}

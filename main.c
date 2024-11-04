@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:16:21 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/28 16:47:18 by filferna         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:58:12 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,25 @@ int	main(void)
 		str = readline("minishell: ");
 		add_history(str);
 		line = ft_splot(str);
+		if (!line[0])
+			continue;
 		msh = lexer(mshh, line);
-    *mshh = msh;
+		*mshh = msh;
 		expand(mshh);
 		temp = msh;
-    if (ft_input_check(mshh))
-    {
-	   while (temp)
-	   {
-	    printf("token --> [%s]\n", temp->token);
-	    printf("type  --> [%d]\n", temp->type);
-	    temp = temp->next;
-     }
-    }
-    else
-      printf("ERROR IN PARSING\n");
-		*mshh = msh;
-		free_list(mshh);
-    free(line);
-  }
+		if (ft_input_check(mshh))
+		{
+		while (temp)
+		{
+			printf("token --> [%s]\n", temp->token);
+			printf("type  --> [%d]\n", temp->type);
+			temp = temp->next;
+		}
+		}
+		else
+		printf("ERROR IN PARSING\n");
+			*mshh = msh;
+			free_list(mshh);
+		free(line);
+	}
 }
