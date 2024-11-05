@@ -22,6 +22,9 @@ typedef struct s_args{
 	char 			*token;
 	int				type;
 	struct	s_args	*next;
+	int bob;
+	char o;
+	float construtor;
 }	t_args;
 
 
