@@ -6,19 +6,24 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 16:19:16 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/28 16:10:49 by filferna         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:37:08 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_get_type(t_args **mshh, char *token)
+void	ft_get_type(t_args **mshh, t_menu *menu, char *token)
 {
 	t_args	*msh;
 
 	msh = *mshh;
 	if (!ft_strcmp(token, "|"))
 		msh->type = PIPE;
+	else if (!ft_strcmp(token, "~"))
+	{
+		(*mshh)->token = menu->til;
+		msh->type = ARG;
+	}
 	else if (!ft_strcmp(token, ">"))
 		msh->type = RED_OUT;
 	else if (!ft_strcmp(token, ">>"))
@@ -31,7 +36,7 @@ void	ft_get_type(t_args **mshh, char *token)
 		msh->type = 0;
 }
 
-t_args	*lexer(t_args **mshh, char **line)
+t_args	*lexer(t_args **mshh, char **line, t_menu *menu)
 {
 	int		j;
 	t_args	*msh;
@@ -49,7 +54,7 @@ t_args	*lexer(t_args **mshh, char **line)
 		if(j == 0)
 			msh->type = CMD;
 		else
-			ft_get_type(&msh, line[j]);
+			ft_get_type(&msh, menu, line[j]);
 		if (!msh->type)
 			msh->type = ARG;
 		if (!line[j + 1])
