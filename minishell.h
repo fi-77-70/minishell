@@ -30,7 +30,7 @@ typedef struct s_menu{
 	t_args	**mshh;
 }	t_menu;
 
-t_args	*lexer(t_args **mshh, char **line);
+t_args	*lexer(t_args **mshh, char **line, t_menu *menu);
 void	echo_shell(t_args *args);
 int		is_cmd(char *str);
 void	expand(t_args **args);
