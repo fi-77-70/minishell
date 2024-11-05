@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 14:16:35 by filferna          #+#    #+#             */
-/*   Updated: 2024/11/04 15:08:44 by filferna         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -34,8 +22,11 @@ typedef struct s_args{
 	char 			*token;
 	int				type;
 	struct	s_args	*next;
+	char			*text;
 }	t_args;
 
+
+void	echo(t_args *args);
 t_args	*lexer(t_args **mshh, char **line);
 int		is_cmd(char *str);
 void	expand(t_args **args);
