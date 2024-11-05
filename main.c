@@ -74,7 +74,7 @@ int	main(void)
 	{
 		menu->mshh = (t_args **)malloc(sizeof(t_args *));
 		*(menu->mshh) = msh;
-		str = readline("minishell: ");
+		lolippop = readline("minishell: ");
 		add_history(str);
 		line = ft_splot(str);
 		if (!line[0])
