@@ -12,16 +12,16 @@
 
 NAME = minishell
 
-SRC = main.c ./parsing/lexer.c ./parsing/expander.c
+SRC = main.c ./parsing/lexer.c ./parsing/expander.c ./parsing/input_parsing.c
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
-CC = cc -Wall -Werror -Wextra -g -lreadline
+CC = cc -Wall -Werror -Wextra -g
 
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBS)
-		$(CC) $(SRC) $(LIBS) -o $(NAME)
+		$(CC) $(SRC) $(LIBS) -lreadline -o $(NAME)
 
 re: fclean all
 
