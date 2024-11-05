@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 14:16:21 by filferna          #+#    #+#             */
-/*   Updated: 2024/11/05 15:40:22 by filferna         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 int	is_cmd(char *str)
@@ -97,12 +85,12 @@ int	main(void)
 		temp = msh;
 		if (ft_input_check(menu->mshh))
 		{
-		while (temp)
-		{
-			printf("token --> [%s]\n", temp->token);
-			printf("type  --> [%d]\n", temp->type);
-			temp = temp->next;
-		}
+			while (temp)
+			{
+				printf("token --> [%s]\n", temp->token);
+				printf("type  --> [%d]\n", temp->type);
+				temp = temp->next;
+			}
 		}
 		else
 			printf("ERROR IN PARSING\n");
