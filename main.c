@@ -23,6 +23,17 @@ int	is_cmd(char *str)
 		result = 1;
 	return (result);
 }
+void	free_line(char **line)
+{
+	int	j;
+	
+	j = -1;
+	while(line[++j])
+	{
+		free(line[j]);
+	}
+	free(line);
+}
 
 void	free_list(t_args **mshh)
 {
@@ -31,7 +42,6 @@ void	free_list(t_args **mshh)
 	while (*mshh)
 	{
 		temp = (*mshh)->next;
-		free((*mshh)->token);
 		free(*mshh);
 		*mshh = temp;
 	}
@@ -39,36 +49,41 @@ void	free_list(t_args **mshh)
 	free(mshh);
 }
 
+void	init_struct(t_menu **menu)
+{
+	t_menu *temp;
+
+	temp = *menu;
+	temp = (t_menu *)malloc(sizeof(t_menu));
+	temp->mshh = NULL;
+	temp->til = getenv("HOME");
+	*menu = temp;
+}
+
 int	main(void)
 {
 	char	*str;
 	char	**line;
-	t_args	**mshh;
+	t_menu	*menu;
 	t_args	*msh;
 	t_args	*temp;
 	
-	mshh = NULL;
 	msh = NULL;
-	temp = NULL;
+	init_struct(&menu);
 	while(1)
 	{
-		mshh = (t_args **)malloc(sizeof(t_args *));
-		if(!mshh)
-			return (0);
-		*mshh = msh;
+		menu->mshh = (t_args **)malloc(sizeof(t_args *));
+		*(menu->mshh) = msh;
 		str = readline("minishell: ");
 		add_history(str);
 		line = ft_splot(str);
 		if (!line[0])
 			continue;
-		msh = lexer(mshh, line);
-		*mshh = msh;
-		expand(mshh);
+		msh = lexer(menu->mshh, line, menu);
+		*(menu->mshh) = msh;
+		expand(menu->mshh);
 		temp = msh;
-		if (is_cmd(temp->token) && ft_strcmp(temp->token, "echo") == 0)
-            echo_shell(temp);
-		printf("\n");
-		if (ft_input_check(mshh))
+		if (ft_input_check(menu->mshh))
 		{
 			while (temp)
 			{
@@ -78,9 +93,9 @@ int	main(void)
 			}
 		}
 		else
-		printf("ERROR IN PARSING\n");
-			*mshh = msh;
-			free_list(mshh);
-		free(line);
+			printf("ERROR IN PARSING\n");
+		*(menu->mshh) = msh;
+		free_list(menu->mshh);
+		free_line(line);
 	}
 }

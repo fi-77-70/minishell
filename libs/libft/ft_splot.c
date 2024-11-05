@@ -6,7 +6,7 @@
 /*   By: filferna <filferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:38:58 by filferna          #+#    #+#             */
-/*   Updated: 2024/10/28 14:26:46 by filferna         ###   ########.fr       */
+/*   Updated: 2024/11/05 16:38:56 by filferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	cut_count(char *str)
 	i = 0;
 	j = 1;
 	word = 0;
+// While to count symbols
 	while (str[i])
 	{
 		if (str[i] == '"')
@@ -50,6 +51,7 @@ int	cut_count(char *str)
 			i++;
 	}
 	i = 0;
+// while to count words
 	while (str[i])
 	{
 		if (str[i] == '"')
@@ -91,7 +93,7 @@ char	*ft_space(char *str, int *j, int *i, char *previous)
 	matrix[a] = 0;
 	return (matrix);
 }
-void	check_symbol(char *str, int *j, int *i, char **matrix, int *a)
+void		check_symbol(char *str, int *j, int *i, char **matrix, int *a)
 {
 	if (str[*i] == ' ' || (str[*i] != '|' && str[*i] != '<' && str[*i] != '>'))
 		return ;
@@ -133,10 +135,10 @@ char	**ft_splot(char *str)
 	matrix = (char **)malloc(sizeof(char *) * (cut_count(str) + 2));
 	if (!matrix)
 		return (NULL);
-	i = -1;
+	i = 0;
 	j = 0;
 	a = 0;
-	while(str[++i])
+	while(str[i++])
 	{
 		if (str[j] == ' ')
 			jump(str, &j, &i);
@@ -144,10 +146,12 @@ char	**ft_splot(char *str)
 			ft_quote(str, &i, 39);
 		if (str[i] == '"')
 			ft_quote(str, &i, '"');
-		if (str[i] == ' ' || str[i] == '|' || str[i + 1] == 0 || str[i] == '<' || str[i] == '>')
+		if (str[i] == ' ' || str[i] == '|' || str[i] == 0 || str[i] == '<' || str[i] == '>')
 		{
-			if(i != j && str[j] != '|' && str[j] != '>' && str[j] != '<')
+			if((i == 0 || i != j) && str[j] != '|' && str[j] != '>' && str[j] != '<')
 			{
+				if (i == 0)
+					i++;
 				matrix[a] = ft_space(str, &j, &i, matrix[a]);
 				a++;
 			}

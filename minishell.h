@@ -25,8 +25,13 @@ typedef struct s_args{
 }	t_args;
 
 
+typedef struct s_menu{
+	char	*til;
+	t_args	**mshh;
+}	t_menu;
+
+t_args	*lexer(t_args **mshh, char **line, t_menu *menu);
 void	echo_shell(t_args *args);
-t_args	*lexer(t_args **mshh, char **line);
 int		is_cmd(char *str);
 void	expand(t_args **args);
 char	*ft_expander(char *str, int i);
