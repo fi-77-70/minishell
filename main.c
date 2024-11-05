@@ -26,16 +26,16 @@ int	is_cmd(char *str)
 
 void	free_list(t_args **mshh)
 {
-	t_args	*node;
 	t_args	*temp;
 
-	node = *mshh;
-	while (node->next)
+	while (*mshh)
 	{
-		temp = node->next;
-		free(node);
-		node = temp;
+		temp = (*mshh)->next;
+		free((*mshh)->token);
+		free(*mshh);
+		*mshh = temp;
 	}
+	free(*mshh);
 	free(mshh);
 }
 
@@ -43,45 +43,41 @@ int	main(void)
 {
 	char	*str;
 	char	**line;
-	int		j;
 	t_args	**mshh;
 	t_args	*msh;
-	j = -1;
+	t_args	*temp;
+	
+	mshh = NULL;
+	msh = NULL;
+	temp = NULL;
 	while(1)
 	{
 		mshh = (t_args **)malloc(sizeof(t_args *));
-		msh = (t_args *)malloc(sizeof(t_args));
+		if(!mshh)
+			return (0);
 		*mshh = msh;
-		j = -1;
 		str = readline("minishell: ");
 		add_history(str);
 		line = ft_splot(str);
-		while(line[++j])
+		if (!line[0])
+			continue;
+		msh = lexer(mshh, line);
+		*mshh = msh;
+		expand(mshh);
+		temp = msh;
+		if (ft_input_check(mshh))
 		{
-			msh->token = line[j];
-			if(j == 0)
-				msh->type = CMD;
-			else if(!ft_strcmp(line[j], "|"))
-				msh->type = PIPE;
-			msh->next = (t_args *)malloc(sizeof(t_args));
-			if (!line[j + 1])
-			{
-				msh->next = NULL;
-				break ;
-			}
-			if(msh->type == PIPE)
-				msh->next->type = CMD;
-			else
-				msh->next->type = ARG;
-			msh = msh->next;
-		}
-		msh = *mshh;
-		while (msh)
+		while (temp)
 		{
-			printf("token --> [%s]\n", msh->token);
-			printf("type  --> [%d]\n", msh->type);
-			msh = msh->next;
+			printf("token --> [%s]\n", temp->token);
+			printf("type  --> [%d]\n", temp->type);
+			temp = temp->next;
 		}
-		free_list(mshh);
+		}
+		else
+		printf("ERROR IN PARSING\n");
+			*mshh = msh;
+			free_list(mshh);
+		free(line);
 	}
 }

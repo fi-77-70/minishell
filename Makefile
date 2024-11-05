@@ -1,27 +1,15 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gudaniel <gudaniel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/10 14:22:41 by filferna          #+#    #+#              #
-#    Updated: 2024/10/25 14:00:45 by gudaniel         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
-SRC = main.c ./parsing/lexer.c ./builtin/echo/echo.c
+SRC = main.c ./parsing/lexer.c ./parsing/expander.c ./parsing/input_parsing.c ./builtin/echo/echo.c
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
-CC = cc -Wall -Werror -Wextra -g -lreadline
+CC = cc -Wall -Werror -Wextra -g
 
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBS)
-		$(CC) $(SRC) $(LIBS) -o $(NAME)
+		$(CC) $(SRC) $(LIBS) -lreadline -o $(NAME)
 
 re: fclean all
 

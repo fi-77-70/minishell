@@ -2,17 +2,21 @@
 # define MINISHELL_H
 
 #include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libs/libft/libft.h"
 #include "libs/ft_printf/ft_printf.h"
 
-#define	BUILT 0
-#define CMD 1
-#define ARG 2
-#define	PIPE 3 
+#define	BUILT		1
+#define CMD			2
+#define ARG			3
+#define	PIPE		4
+#define RED_OUT		5
+#define APP_OUT		6
+#define	RED_IN		7
+#define	HERE_DOC	8
 
 typedef struct s_args{
 	char 			*token;
@@ -21,8 +25,14 @@ typedef struct s_args{
 	char			*text;
 }	t_args;
 
-int	lexer(char *token);
-int	is_cmd(char *str);
+
 void	echo(t_args *args);
+t_args	*lexer(t_args **mshh, char **line);
+int		is_cmd(char *str);
+void	expand(t_args **args);
+char	*ft_expander(char *str, int i);
+char	*get_var_name(char *env_var);
+char	*ft_final_expand(char *str, char *var, char *var_name, int n);
+int ft_input_check(t_args **mshh);
 
 #endif
