@@ -65,14 +65,17 @@ int	main(void)
 		*mshh = msh;
 		expand(mshh);
 		temp = msh;
+		if (is_cmd(temp->token) && ft_strcmp(temp->token, "echo") == 0)
+            echo_shell(temp);
+		printf("\n");
 		if (ft_input_check(mshh))
 		{
-		while (temp)
-		{
-			printf("token --> [%s]\n", temp->token);
-			printf("type  --> [%d]\n", temp->type);
-			temp = temp->next;
-		}
+			while (temp)
+			{
+				printf("token --> [%s]\n", temp->token);
+				printf("type  --> [%d]\n", temp->type);
+				temp = temp->next;
+			}
 		}
 		else
 		printf("ERROR IN PARSING\n");

@@ -1,11 +1,17 @@
 #include "../../minishell.h"
 
-void	echo(t_args *args)
+void	echo_shell(t_args *args)
 {
 
-	while (args && args->next != PIPE)
+	int first_arg;
+	
+	first_arg = 1;
+	while (args && args->next)
 	{
-		ft_printf("%S", args->text);
 		args = args->next;
-	}
+		if (first_arg == 0)
+			ft_printf(" ");
+		ft_printf("Echo test: -> [%s]", args->token);
+		first_arg = 0;
+    }
 }

@@ -22,17 +22,16 @@ typedef struct s_args{
 	char 			*token;
 	int				type;
 	struct	s_args	*next;
-	char			*text;
 }	t_args;
 
 
-void	echo(t_args *args);
+void	echo_shell(t_args *args);
 t_args	*lexer(t_args **mshh, char **line);
 int		is_cmd(char *str);
 void	expand(t_args **args);
 char	*ft_expander(char *str, int i);
 char	*get_var_name(char *env_var);
 char	*ft_final_expand(char *str, char *var, char *var_name, int n);
-int ft_input_check(t_args **mshh);
+int 	ft_input_check(t_args **mshh);
 
 #endif
