@@ -41,5 +41,6 @@ char	*ft_expander(char *str, int i);
 char	*get_var_name(char *env_var);
 char	*ft_final_expand(char *str, char *var, char *var_name, int n);
 int 	ft_input_check(t_args **mshh);
+void	get_pwd(void);
 
 #endif

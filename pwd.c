@@ -8,7 +8,7 @@ void	get_pwd(void)
 
 	if (cwd == NULL)
 	{	
-		perror("Error to get pwd");
+		printf("Error to get pwd");
 		return ;
 	}
 
