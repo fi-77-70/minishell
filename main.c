@@ -83,9 +83,6 @@ int	main(void)
 		*(menu->mshh) = msh;
 		expand(menu->mshh);
 		temp = msh;
-		echo_shell(temp);
-		if ((is_cmd(msh->token)) && (ft_strcmp(msh->token, "pwd") == 0))
-			get_pwd();
 		if (ft_input_check(menu->mshh))
 		{
 			while (temp)

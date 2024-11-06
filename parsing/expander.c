@@ -83,11 +83,11 @@ void	expand(t_args **args)
 	int		i;
 	int		quoted;
 	t_args	*temp;
-  t_args  *msh;
+	t_args  *msh;
 
 	temp = NULL;
 	temp = *args;
-  msh = temp;
+	msh = temp;
 	quoted = -1;
 	while(temp)
 	{
@@ -102,7 +102,7 @@ void	expand(t_args **args)
 				while (temp->token[i] != 39 && temp->token[i])
 					i++;
 			}
-			if (temp->token[i] == '$')
+			if (temp->token[i] == '$' && temp->token[i + 1] && temp->token[i + 1] != '~')
 				temp->token = ft_expander(temp->token, i);
 			if (!temp->token[i])
 				break ;
