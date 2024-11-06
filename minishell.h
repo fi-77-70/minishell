@@ -9,7 +9,6 @@
 #include "libs/libft/libft.h"
 #include "libs/ft_printf/ft_printf.h"
 
-#define	BUILT		1
 #define CMD			2
 #define ARG			3
 #define	PIPE		4
@@ -18,21 +17,28 @@
 #define	RED_IN		7
 #define	HERE_DOC	8
 
+
 typedef struct s_args{
 	char 			*token;
 	int				type;
 	struct	s_args	*next;
-	int bob;
-	char o;
-	float construtor;
 }	t_args;
 
+typedef	struct s_cmds{
+	char			*cmd;
+	char			**args;
+	t_args			*redir;
+	char			*here_doc;
+	struct	s_cmds	*next;
+} t_cmds;
 
 typedef struct s_menu{
 	char	*til;
 	t_args	**mshh;
+	t_cmds	**cmds;
 }	t_menu;
 
+t_cmds	**ft_cmd_div(t_args *msh);
 t_args	*lexer(t_args **mshh, char **line, t_menu *menu);
 void	echo_shell(t_args *args);
 int		is_cmd(char *str);

@@ -60,6 +60,39 @@ void	init_struct(t_menu **menu)
 	*menu = temp;
 }
 
+void	free_cmds(t_cmds **cmds)
+{
+	t_cmds	*temp;
+	t_args	*del;
+
+	temp = *cmds;
+	while(temp)
+	{
+		if (temp->args)
+			free(temp->args);
+		if (temp->redir)
+		{
+			while (temp->redir)
+			{
+				del = temp->redir->next;
+				free(temp->redir);
+				temp->redir = del;
+			}
+		}
+		*cmds = temp->next;
+		free (temp);
+		temp = *cmds;
+	}
+	free(cmds);
+}
+
+void	free_all(t_menu *menu, char **line)
+{
+	free_cmds(menu->cmds);
+	free_list(menu->mshh);
+	free_line(line);
+}
+
 int	main(void)
 {
 	char	*str;
@@ -94,8 +127,8 @@ int	main(void)
 		}
 		else
 			printf("ERROR IN PARSING\n");
+		menu->cmds = ft_cmd_div(msh);
 		*(menu->mshh) = msh;
-		free_list(menu->mshh);
-		free_line(line);
+		free_all(menu, line);
 	}
 }

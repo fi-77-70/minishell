@@ -41,7 +41,7 @@ t_args	*lexer(t_args **mshh, char **line, t_menu *menu)
 		msh->token = line[j];
 		if(j == 0)
 			msh->type = CMD;
-		else
+		else if (!msh->type)
 			ft_get_type(&msh, menu, line[j]);
 		if (!msh->type)
 			msh->type = ARG;
@@ -50,9 +50,13 @@ t_args	*lexer(t_args **mshh, char **line, t_menu *menu)
 			msh->next = NULL;
 			break ;
 		}
-    msh->next = (t_args *)malloc(sizeof(t_args));
-    if (msh->type == PIPE)
-      msh->next->type = CMD;
+    	msh->next = (t_args *)malloc(sizeof(t_args));
+		if (!msh->next)
+			return (*mshh = temp);
+		if (msh->type == PIPE)
+			msh->next->type = CMD;
+		else
+			msh->next->type = 0;
 		msh = msh->next;
 	}
 	*mshh = temp;
