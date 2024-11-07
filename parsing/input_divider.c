@@ -19,7 +19,12 @@ char	**get_args(t_args *msh, char **args)
 			msh = msh->next;
 	}
 	if (!args)
-		args = (char **)malloc(sizeof(char *) * size + 1);
+	{
+		args = (char **)malloc(sizeof(char *) * (size + 1));
+		while (i < size + 1)
+			args[i++] = NULL;
+		i = 0;
+	}
 	else
 		while (args[i])
 			i++;
@@ -31,7 +36,6 @@ char	**get_args(t_args *msh, char **args)
 		temp = temp->next;
 		i++;
 	}
-	args[i] = 0;
 	return (args);
 }
 

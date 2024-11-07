@@ -1,7 +1,7 @@
 NAME = minishell
 
 SRC = main.c ./parsing/lexer.c ./parsing/expander.c ./parsing/input_parsing.c ./builtin/echo/echo.c ./builtin/pwd/pwd.c \
-		./executer/execute.c	./parsing/input_divider.c\
+		./executer/execute.c	./parsing/input_divider.c	./executer/exe_bui.c ./parsing/expand_utils.c	\
 
 LIBS = ./libs/libft/libft.a	./libs/ft_printf/libftprintf.a
 
@@ -18,7 +18,12 @@ $(LIBS):
 		make -C ./libs/libft
 		make -C ./libs/ft_printf
 
+valgrind: 
+	@echo "{\n   leak readline\n   Memcheck:Leak\n...\n   fun:readline\n}\n{\n   leak add_history\n   Memcheck:Leak\n...\n   fun:add_history\n}" > readline.supp
+	@valgrind --suppressions=readline.supp --leak-check=full -s --show-leak-kinds=all ./$(NAME)
+
 clean:
+		rm	readline.supp
 		make clean -C ./libs/libft
 		make clean -C ./libs/ft_printf
 fclean:

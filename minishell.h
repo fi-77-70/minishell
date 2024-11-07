@@ -32,8 +32,11 @@ typedef	struct s_cmds{
 	struct	s_cmds	*next;
 } t_cmds;
 
-typedef struct s_menu{
+typedef struct s_menu
+{
 	char	*til;
+	char	**line;
+	char	**algo;
 	t_args	**mshh;
 	t_cmds	**cmds;
 }	t_menu;
@@ -42,11 +45,16 @@ t_cmds	**ft_cmd_div(t_args *msh);
 t_args	*lexer(t_args **mshh, char **line, t_menu *menu);
 void	echo_shell(t_args *args);
 int		is_cmd(char *str);
-void	expand(t_args **args);
-char	*ft_expander(char *str, int i);
+void	expand(t_args **args, char **line, t_menu *menu);
+char	*ft_expander(char *str, int i, t_menu *menu);
 char	*get_var_name(char *env_var);
 char	*ft_final_expand(char *str, char *var, char *var_name, int n);
 int 	ft_input_check(t_args **mshh);
 void	get_pwd(void);
+void	free_all(t_menu *menu);
+int		pid_get(t_menu *menu);
+void	process_handler(t_menu *menu);
+void 	dup_arrr(char **map, t_menu **menu);
+char	*env_get(char *name, t_menu *menu);
 
 #endif

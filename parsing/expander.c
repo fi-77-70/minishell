@@ -29,11 +29,11 @@ char	*ft_final_expand(char *str, char *var, char *var_name, int n)
 				i++;
 			while (str[i] != ' ' && str[i] != '"' && str[i] != '$' && str[i] != 39 && str[i])
 				i++;
+			expanded = 1;
 			if(!var)
 				break;
 			while (var[a])
 				final[j++] = var[a++];
-			expanded = 1;
 		}
 		final[j++] = str[i];
 		if (!str[i])
@@ -66,22 +66,23 @@ char	*get_var_name(char *env_var)
 	return (var);
 }
 
-char	*ft_expander(char *str, int i)
+char	*ft_expander(char *str, int i, t_menu *menu)
 {
 	char	*var_name;
 	char	*expanded;
 
 	i++;
 	var_name = get_var_name(str + i);
-	expanded = getenv(var_name);
+	expanded = env_get(var_name, menu);
 	i--;
 	return (ft_final_expand(str, expanded, var_name, i));
 }
 
-void	expand(t_args **args)
+void	expand(t_args **args, char **line, t_menu *menu)
 {
 	int		i;
 	int		quoted;
+	int		j;
 	t_args	*temp;
 	t_args  *msh;
 
@@ -89,6 +90,7 @@ void	expand(t_args **args)
 	temp = *args;
 	msh = temp;
 	quoted = -1;
+	j = 0;
 	while(temp)
 	{
 		i = -1;
@@ -102,11 +104,15 @@ void	expand(t_args **args)
 				while (temp->token[i] != 39 && temp->token[i])
 					i++;
 			}
-			if (temp->token[i] == '$' && temp->token[i + 1] && temp->token[i + 1] != '~')
-				temp->token = ft_expander(temp->token, i);
+			if (temp->token[i] == '$' && temp->token[i + 1] && temp->token[i + 1] != '~' && temp->token[i + 1] != '$' && temp->token[i + 1] != '?')
+			{
+				temp->token = ft_expander(temp->token, i, menu);
+				line[j] = temp->token;
+			}
 			if (!temp->token[i])
 				break ;
 		}
+		j++;
 		temp = temp->next;
 	}
   *args = msh;
